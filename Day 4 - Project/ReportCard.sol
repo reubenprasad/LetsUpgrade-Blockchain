@@ -1,28 +1,34 @@
 pragma solidity >=0.4.22 <0.7.0;
 
 contract ReportCard{
-    string public Name;
-    string public RollNo;
-    string public Batch;
-    uint public S1Marks;
-    uint public S2Marks;
-    uint public S3Marks;
-    uint public S4Marks;
-    string public status;
+    struct studentDetails{
+    string  Name;
+    string  Batch;
+    uint  S1Marks;
+    uint  S2Marks;
+    uint  S3Marks;
+    uint  S4Marks;
+    string  status;
+    }
     
-    function setDetails(string _Name,string _RollNo,string _Batch,uint _S1Marks,uint _S2Marks,uint _S3Marks,uint _S4Marks,string _status)public{
-    Name = _Name;
-    RollNo = _RollNo;
-    Stream = _Batch;
-    Sub1Marks = _S1Marks;
-    Sub2Marks = _S2Marks;
-    Sub3Marks = _S3Marks;
-    Sub4Marks = _S4Marks;
-    status = _status;
+    mapping(uint => studentDetails) student;
+
+    function setDetails(uint _RollNo,string memory _Name,string memory _Batch,uint _S1Marks,uint _S2Marks,uint _S3Marks,uint _S4Marks,string memory _status)public{
+   
+
+     student[_RollNo] = studentDetails(_Name, _Batch, _S1Marks, _S2Marks, _S3Marks, _S4Marks, _status);
     }
     
     
-    function getDetails()public view returns(string,string,string,uint,uint,uint,uint,string){
-        return(Name,RollNo,Stream,Sub1Marks,Sub2Marks,Sub3Marks,Sub4Marks,status);
+    function getDetails(uint _RollNo)public view returns(string memory _Name,string memory _Batch,uint _S1Marks,uint _S2Marks,uint _S3Marks,uint _S4Marks,string memory _status){
+      
+        _Name = student[_RollNo].Name;
+        _Batch = student[_RollNo].Batch;
+        _S1Marks = student[_RollNo].S1Marks;
+        _S2Marks = student[_RollNo].S2Marks;
+        _S3Marks = student[_RollNo].S3Marks;
+        _S4Marks = student[_RollNo].S4Marks;
+        _status = student[_RollNo].status;
+        
     }
 }
